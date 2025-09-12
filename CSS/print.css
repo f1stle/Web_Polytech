@@ -1,0 +1,90 @@
+@media print {
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    header, 
+    nav, 
+    .sidebar, 
+    footer,
+    .login-btn,
+    .submit-btn,
+    .back-to-home,
+    input[type="file"],
+    .form-options,
+    .radio-group,
+    .checkbox-label input {
+        display: none !important;
+    }
+
+    .hero-image,
+    .gallery img {
+        display: none;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: avoid;
+    }
+    
+    th, td {
+        border: 1px solid #000;
+        padding: 8px;
+    }
+    
+    th {
+        background: #f0f0f0 !important;
+        font-weight: bold;
+    }
+
+    .container {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+        border: 1px solid #000 !important;
+        background: white !important;
+        padding: 4px;
+    }
+
+    a {
+        text-decoration: underline;
+        color: #000 !important;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+    }
+
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+
+    p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    * {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+}

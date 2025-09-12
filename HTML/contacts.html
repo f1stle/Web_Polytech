@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Путешествия по России</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/print.css" media="print">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Россия для путешественников</div>
+            <nav>
+                <ul class="nav-flex">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О проекте</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="routes.html">Маршруты</a></li>
+                    <li><a href="feedback.html">Обратная связь</a></li>
+                    <li><a href="login.html">Вход</a></li>
+                    <li><a href="contacts.html" class="active">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-container container">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>Быстрые контакты</h3>
+                <div class="sidebar-widget">
+                    <h4>Экстренная связь</h4>
+                    <p>Телефон: +7 (913) 201-80-71</p>
+                    <p>Email: profi2000.melnikov@gmail.com</p>
+                </div>
+                <div class="sidebar-widget">
+                    <h4>Часы работы</h4>
+                    <p>Пн-Пт: 9:00-18:00</p>
+                    <p>Сб-Вс: 10:00-16:00</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <h1 class="section-title">Контакты</h1>
+            
+            <div class="contacts-grid">
+                <div class="contact-card">
+                    <h3>Основной офис</h3>
+                    <p>г. Москва, ул. Примерная, д. 123</p>
+                    <p>Email: profi2000.melnikov@gmail.com</p>
+                    <p>Телефон: +7 (913) 201-80-71</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>Техническая поддержка</h3>
+                    <p>Email: support@russia-travel.ru</p>
+                    <p>Телефон: +7 (495) 123-45-67</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>Бронирование туров</h3>
+                    <p>Email: booking@russia-travel.ru</p>
+                    <p>Телефон: +7 (495) 765-43-21</p>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2>Напишите нам</h2>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact-name">Имя:</label>
+                            <input type="text" id="contact-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email:</label>
+                            <input type="email" id="contact-email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Сообщение:</label>
+                        <textarea id="contact-message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Отправить сообщение</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container footer-flex">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Email: profi2000.melnikov@gmail.com</p>
+                <p>Телефон: +7 (913) 201-80-71</p>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Россия для путешественников. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

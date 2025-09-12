@@ -3,168 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Путешествия по России</title>
+    <title>Главная - Путешествия по России</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/print.css" media="print">
 </head>
 <body>
     <header>
         <div class="container header-content">
             <div class="logo">Россия для путешественников</div>
             <nav>
-                <ul>
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#about">О проекте</a></li>
-                    <li><a href="#gallery">Галерея</a></li>
-                    <li><a href="#routes">Маршруты</a></li>
-                    <li><a href="#feedback">Обратная связь</a></li>
+                <ul class="nav-flex">
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="about.html">О проекте</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="routes.html">Маршруты</a></li>
+                    <li><a href="feedback.html">Обратная связь</a></li>
                     <li><a href="login.html">Вход</a></li>
-                    <li><a href="#contacts">Контакты</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="container">
-        <section id="home" class="hero">
-            <h1>Открой для себя красоту России</h1>
-            <img src="../scr/_original.jpg" alt="Пейзаж России" class="hero-image">
-            <p>Россия - страна с богатейшей культурой, уникальной природой и многовековой историей. Откройте для себя удивительные места, которые стоит посетить каждому.</p>
-        </section>
-
-        <section id="about" class="about">
-            <h2 class="section-title">О проекте</h2>
-            <p>Наш проект создан для тех, кто хочет познакомиться с разнообразием природных и культурных достопримечательностей России. Мы предлагаем информацию о самых интересных местах, маршрутах и советы путешественникам.</p>
-        </section>
-
-        <section id="gallery" class="gallery-section">
-            <h2 class="section-title">Галерея</h2>
-            <div class="gallery">
-                <img src="../scr/scale_1200.jpg" alt="Озеро Байкал">
-                <img src="../scr/panoramic-view-city-petropavlovskkamchatsky.jpg" alt="Камчатка">
-                <img src="../scr/f28ed083-c230-52ca-95a4-55d0f959a130.jpg" alt="Золотое кольцо">
+    <div class="main-container container">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>Быстрые ссылки</h3>
+                <ul class="sidebar-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О проекте</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="routes.html">Маршруты</a></li>
+                    <li><a href="feedback.html">Обратная связь</a></li>
+                </ul>
+                
+                <div class="sidebar-widget">
+                    <h4>Новости</h4>
+                    <p>Новые маршруты уже доступны для бронирования!</p>
+                    <button class="sidebar-btn">Подробнее</button>
+                </div>
             </div>
-        </section>
+        </aside>
 
-        <section id="routes" class="routes">
-            <h2 class="section-title">Популярные маршруты</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Маршрут</th>
-                        <th>Длительность</th>
-                        <th>Лучшее время</th>
-                        <th>Сложность</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Золотое кольцо России</td>
-                        <td>7-10 дней</td>
-                        <td>Май-Сентябрь</td>
-                        <td>Низкая</td>
-                    </tr>
-                    <tr>
-                        <td>Байкальская тропа</td>
-                        <td>5-7 дней</td>
-                        <td>Июль-Август</td>
-                        <td>Средняя</td>
-                    </tr>
-                    <tr>
-                        <td>Вулканы Камчатки</td>
-                        <td>10-14 дней</td>
-                        <td>Июль-Сентябрь</td>
-                        <td>Высокая</td>
-                    </tr>
-                    <tr>
-                        <td>Кавказские горы</td>
-                        <td>7-12 дней</td>
-                        <td>Июнь-Сентябрь</td>
-                        <td>Средняя</td>
-                    </tr>
-                    <tr>
-                        <td>Санкт-Петербург и окрестности</td>
-                        <td>5-7 дней</td>
-                        <td>Июнь-Июль</td>
-                        <td>Низкая</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+        <main class="main-content">
+            <section class="hero">
+                <h1>Открой для себя красоту России</h1>
+                <img src="../scr/_original.jpg" alt="Пейзаж России" class="hero-image">
+                <p>Россия - страна с богатейшей культурой, уникальной природой и многовековой историей. Откройте для себя удивительные места, которые стоит посетить каждому.</p>
+            </section>
 
-        <section id="feedback" class="feedback-form">
-            <h2 class="section-title">Обратная связь</h2>
-            <form action="https://httpbin.org/post" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="fullname">ФИО:</label>
-                    <input type="text" id="fullname" name="fullname" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Откуда узнали о нас:</label>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" name="source" value="search" required>
-                            Поисковые системы
-                        </label>
-                        <label>
-                            <input type="radio" name="source" value="social">
-                            Социальные сети
-                        </label>
-                        <label>
-                            <input type="radio" name="source" value="friend">
-                            Рекомендация друзей
-                        </label>
-                        <label>
-                            <input type="radio" name="source" value="other">
-                            Другое
-                        </label>
+            <section class="features">
+                <h2 class="section-title">Почему выбирают нас</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Уникальные маршруты</h3>
+                        <p>Только проверенные и интересные направления по всей России</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Советы экспертов</h3>
+                        <p>Рекомендации от опытных путешественников и гидов</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Актуальная информация</h3>
+                        <p>Всегда свежие данные о достопримечательностях и условиях</p>
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="type">Тип обращения:</label>
-                    <select id="type" name="type" required>
-                        <option value="">-- Выберите тип --</option>
-                        <option value="complaint">Жалоба</option>
-                        <option value="suggestion">Предложение</option>
-                    </select>
+            </section>
+
+            <section class="expanded-gallery">
+                <h2 class="section-title">Жемчужины России</h2>
+                <div class="expanded-gallery-grid">
+
+                    <div class="expanded-gallery-item">
+                        <img src="../scr/scale_1200.jpg" alt="Озеро Байкал" class="large-image">
+                        <div class="gallery-caption">
+                            <h3>Озеро Байкал</h3>
+                            <p>Самое глубокое и чистое озеро в мире, объект Всемирного наследия ЮНЕСКО</p>
+                        </div>
+                    </div>
+
+                    <div class="expanded-gallery-item">
+                        <img src="../scr/panoramic-view-city-petropavlovskkamchatsky.jpg" alt="Камчатка" class="large-image">
+                        <div class="gallery-caption">
+                            <h3>Камчатка</h3>
+                            <p>Земля вулканов и гейзеров, уникальный природный заповедник</p>
+                        </div>
+                    </div>
+
+                    <div class="expanded-gallery-item">
+                        <img src="../scr/f28ed083-c230-52ca-95a4-55d0f959a130.jpg" alt="Золотое Кольцо России" class="large-image">
+                        <div class="gallery-caption">
+                            <h3>Золотое Кольцо</h3>
+                            <p>Древние города России с богатейшим культурным наследием</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="message">Текст сообщения:</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
+            </section>
+
+            <section class="quick-links">
+                <h2 class="section-title">Начните путешествие</h2>
+                <div class="links-grid">
+                    <a href="gallery.html" class="link-card">
+                        <h3>Галерея</h3>
+                        <p>Посмотрите фотографии красивых мест России</p>
+                    </a>
+                    <a href="routes.html" class="link-card">
+                        <h3>Маршруты</h3>
+                        <p>Выберите готовый маршрут для путешествия</p>
+                    </a>
+                    <a href="feedback.html" class="link-card">
+                        <h3>Консультация</h3>
+                        <p>Получите персональные рекомендации</p>
+                    </a>
                 </div>
-                
-                <div class="form-group">
-                    <label for="attachment">Вложения:</label>
-                    <input type="file" id="attachment" name="attachment">
-                </div>
-                
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="consent" required>
-                        Даю согласие на обработку персональных данных
-                    </label>
-                </div>
-                
-                <button type="submit" class="submit-btn">Отправить</button>
-            </form>
-        </section>
-    </main>
+            </section>
+        </main>
+    </div>
 
     <footer>
-        <div class="container footer-content">
-            <div class="contact-info">
+        <div class="container footer-flex">
+            <div class="footer-section">
                 <h3>Контакты</h3>
                 <p>Email: profi2000.melnikov@gmail.com</p>
                 <p>Телефон: +7 (913) 201-80-71</p>
             </div>
+            
+            <div class="footer-section">
+                <h3>Мы в соцсетях</h3>
+                <div class="social-flex">
+                    <a href="#">VK</a>
+                    <a href="#">Telegram</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Подписка</h3>
+                <p>Подпишитесь на рассылку новостей</p>
+                <div class="subscribe-flex">
+                    <input type="email" placeholder="Ваш email">
+                    <button class="subscribe-btn">Подписаться</button>
+                </div>
+            </div>
+            
             <div class="copyright">
                 <p>&copy; 2025 Россия для путешественников. Все права защищены.</p>
             </div>
