@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ваш заказ - Путешествия по России</title>
+    <script src="../JS/order-script.js"></script>
+    <link rel="stylesheet" href="../CSS/order-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Россия для путешественников</div>
+            <nav>
+                <ul class="nav-flex">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О проекте</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="tours.html">Туры</a></li>
+                    <li><a href="order.html" class="active">Ваш заказ</a></li>
+                    <li><a href="feedback.html">Обратная связь</a></li>
+                    <li><a href="login.html">Вход</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="tours.html" class="back-link">← Вернуться к выбору туров</a>
+        
+        <div class="order-container">
+            <div class="order-header">
+                <h1>Ваш заказ</h1>
+                <p>Проверьте выбранные туры и заполните данные для бронирования</p>
+            </div>
+            
+            <div id="order-content" class="order-content">
+                <!-- Сюда будет вставлено содержимое заказа -->
+            </div>
+            
+            <div class="booking-form">
+                <h2>Данные для бронирования</h2>
+                <form action="https://httpbin.org/post" method="POST" id="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">ФИО:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dates">Даты путешествия:</label>
+                            <input type="text" id="dates" name="dates" placeholder="дд.мм.гггг - дд.мм.гггг" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="participants">Количество участников:</label>
+                            <input type="number" id="participants" name="participants" min="1" max="20" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comments">Дополнительные пожелания:</label>
+                        <textarea id="comments" name="comments" rows="4" placeholder="Расскажите о ваших предпочтениях..."></textarea>
+                    </div>
+                    
+                    <input type="hidden" id="selected-tours" name="selected_tours">
+                    
+                    <button type="submit" class="submit-btn">Забронировать путешествие</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-flex">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Email: profi2000.melnikov@gmail.com</p>
+                <p>Телефон: +7 (913) 201-80-71</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Мы в соцсетях</h3>
+                <div class="social-flex">
+                    <a href="#">VK</a>
+                    <a href="#">Telegram</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Россия для путешественников. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
