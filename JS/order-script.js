@@ -1,14 +1,11 @@
-// order-script.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Очищаем старые данные при загрузке страницы
     localStorage.removeItem('oldSelectedTours');
-    
-    // Получаем выбранные туры из localStorage
+
     const selectedTours = JSON.parse(localStorage.getItem('selectedTours') || '[]');
     const orderContent = document.getElementById('order-content');
     const selectedToursInput = document.getElementById('selected-tours');
     const bookingForm = document.querySelector('.booking-form');
-    
+
     if (selectedTours.length === 0) {
         orderContent.innerHTML = `
             <div style="text-align: center; padding: 20px;">
@@ -19,32 +16,49 @@ document.addEventListener('DOMContentLoaded', function() {
         if (bookingForm) bookingForm.style.display = 'none';
         return;
     }
-    
-    // Формируем содержимое заказа
-    let total = 0;
-    let orderHTML = '<h3>Выбранные туры:</h3>';
-    
-    selectedTours.forEach(tour => {
-        total += tour.price;
+
+    // Функция рендера заказов
+    function renderOrders() {
+        let total = 0;
+        let orderHTML = '<h3>Выбранные туры:</h3>';
+
+        selectedTours.forEach((tour, index) => {
+            total += tour.price;
+            orderHTML += `
+                <div class="order-item">
+                    <span>${tour.name} — ${tour.price.toLocaleString()}₽</span>
+                    <button class="delete-btn" data-index="${index}">Удалить</button>
+                </div>
+            `;
+        });
+
         orderHTML += `
-            <div class="order-item">
-                <span>${tour.name}</span>
-                <span>${tour.price.toLocaleString()}₽</span>
+            <div class="order-total">
+                <span>Итого:</span>
+                <span>${total.toLocaleString()}₽</span>
             </div>
         `;
-    });
-    
-    orderHTML += `
-        <div class="order-total">
-            <span>Итого:</span>
-            <span>${total.toLocaleString()}₽</span>
-        </div>
-    `;
-    
-    orderContent.innerHTML = orderHTML;
-    selectedToursInput.value = JSON.stringify(selectedTours);
-    
-    // Добавляем валидацию формы
+
+        orderContent.innerHTML = orderHTML;
+        selectedToursInput.value = JSON.stringify(selectedTours);
+
+        // Вешаем обработчики на кнопки "Удалить"
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const idx = this.getAttribute('data-index');
+                selectedTours.splice(idx, 1);
+                localStorage.setItem('selectedTours', JSON.stringify(selectedTours));
+                renderOrders(); // Перерисовываем список
+                if (selectedTours.length === 0 && bookingForm) {
+                    bookingForm.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    renderOrders();
+
+    // Валидация формы (оставляем как у вас)
     document.getElementById('booking-form').addEventListener('submit', function(e) {
         const selectedTours = JSON.parse(localStorage.getItem('selectedTours') || '[]');
         
@@ -53,46 +67,40 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Пожалуйста, выберите хотя бы один тур');
             return false;
         }
-        
-        // Дополнительная проверка основных полей
+
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
         const dates = document.getElementById('dates').value;
         const participants = document.getElementById('participants').value;
-        
+
         if (!name || !email || !phone || !dates || !participants) {
             e.preventDefault();
             alert('Пожалуйста, заполните все обязательные поля');
             return false;
         }
-        
-        // Проверка формата email
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             e.preventDefault();
             alert('Пожалуйста, введите корректный email адрес');
             return false;
         }
-        
-        // Проверка формата телефона (минимум 10 цифр)
-        const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+
         const cleanPhone = phone.replace(/\D/g, '');
         if (cleanPhone.length < 10) {
             e.preventDefault();
             alert('Пожалуйста, введите корректный номер телефона');
             return false;
         }
-        
-        // Проверка формата дат
+
         const dateRegex = /^\d{2}\.\d{2}\.\d{4} - \d{2}\.\d{2}\.\d{4}$/;
         if (!dateRegex.test(dates)) {
             e.preventDefault();
             alert('Пожалуйста, введите даты в формате: дд.мм.гггг - дд.мм.гггг');
             return false;
         }
-        
-        // Проверка количества участников
+
         if (participants < 1 || participants > 20) {
             e.preventDefault();
             alert('Количество участников должно быть от 1 до 20');

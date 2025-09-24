@@ -48,6 +48,25 @@
                     </button>
                 </div>
             </div>
+            <div class="filter-section">
+                <h3>Фильтрация туров</h3>
+            
+                <label for="priceRange">Цена до:</label>
+                <input type="range" id="priceRange" min="10000" max="80000" step="5000" value="80000">
+                <span id="priceValue">80 000 ₽</span>
+            
+                <label for="durationFilter">Длительность:</label>
+                <select id="durationFilter">
+                    <option value="">Все</option>
+                    <option value="short">До 5 дней</option>
+                    <option value="medium">6–10 дней</option>
+                    <option value="long">Более 10 дней</option>
+                </select>
+            
+                <label for="searchFilter">Поиск по названию:</label>
+                <input type="text" id="searchFilter" placeholder="Например, Байкал...">
+            </div>
+            
         </aside>
 
         <main class="main-content">
