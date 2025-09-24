@@ -1,9 +1,7 @@
-// display-tours.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Сортируем туры по алфавиту
     const sortedTours = tours.sort((a, b) => a.name.localeCompare(b.name));
     
-    // Создаем контейнеры для каждой категории
+    
     const categories = ['nature', 'cultural', 'adventure', 'relax'];
     
     categories.forEach(category => {
@@ -16,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Отображаем туры по категориям
     sortedTours.forEach(tour => {
         const container = document.querySelector(`.tours-container[data-category="${tour.category}"]`);
         if (container) {
@@ -29,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function createTourCard(tour) {
     const card = document.createElement('div');
     card.className = 'tour-card';
-    card.setAttribute('data-tour', tour.keyword); // data-атрибут с названием на латинице
+    card.setAttribute('data-tour', tour.keyword); 
     
     card.innerHTML = `
         <div class="tour-image-container">

@@ -1,19 +1,15 @@
-// order-display.js
 document.addEventListener('DOMContentLoaded', function() {
     const orderContent = document.getElementById('order-content');
     const selectedToursInput = document.getElementById('selected-tours');
     const bookingForm = document.querySelector('.booking-form');
     
-    // Загружаем выбранные туры
     const selectedTours = JSON.parse(localStorage.getItem('selectedTours') || '{}');
     let total = 0;
     let hasSelectedTours = false;
     
-    // Проверяем, есть ли выбранные туры
     const hasAnyTour = Object.values(selectedTours).some(tour => tour !== null);
     
     if (!hasAnyTour) {
-        // Если ничего не выбрано
         orderContent.innerHTML = `
             <div class="empty-order-message">
                 <h3>Вы еще не выбрали туры</h3>
@@ -24,13 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // Создаем заголовок для выбранных туров
     const selectedHeader = document.createElement('h2');
     selectedHeader.className = 'selected-header';
     selectedHeader.textContent = 'Выбранные туры:';
     orderContent.appendChild(selectedHeader);
     
-    // Отображаем выбранные туры по категориям
     const categories = [
         { key: 'nature', name: '🌿 Природные туры' },
         { key: 'cultural', name: '🏛️ Культурные туры' },
@@ -38,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { key: 'relax', name: '🏖️ Пляжный отдых' }
     ];
     
-    // Собираем выбранные туры для отправки
     const selectedToursData = [];
     
     categories.forEach(category => {
@@ -70,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
         orderContent.appendChild(categoryElement);
     });
     
-    // Добавляем итоговую стоимость
     if (hasSelectedTours) {
         const totalElement = document.createElement('div');
         totalElement.className = 'total-price';
@@ -80,13 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         orderContent.appendChild(totalElement);
         
-        // Сохраняем выбранные туры в скрытое поле
         if (selectedToursInput && selectedToursData.length > 0) {
             selectedToursInput.value = selectedToursData.join(',');
-            console.log('Selected tours:', selectedToursInput.value); // Для отладки
+            console.log('Selected tours:', selectedToursInput.value); 
         }
     } else {
-        // Скрываем форму, если нет выбранных туров
         if (bookingForm) bookingForm.style.display = 'none';
     }
 });

@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Функция рендера заказов
     function renderOrders() {
         let total = 0;
         let orderHTML = '<h3>Выбранные туры:</h3>';
@@ -42,13 +41,12 @@ document.addEventListener('DOMContentLoaded', function() {
         orderContent.innerHTML = orderHTML;
         selectedToursInput.value = JSON.stringify(selectedTours);
 
-        // Вешаем обработчики на кнопки "Удалить"
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const idx = this.getAttribute('data-index');
                 selectedTours.splice(idx, 1);
                 localStorage.setItem('selectedTours', JSON.stringify(selectedTours));
-                renderOrders(); // Перерисовываем список
+                renderOrders(); 
                 if (selectedTours.length === 0 && bookingForm) {
                     bookingForm.style.display = 'none';
                 }
@@ -58,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     renderOrders();
 
-    // Валидация формы (оставляем как у вас)
     document.getElementById('booking-form').addEventListener('submit', function(e) {
         const selectedTours = JSON.parse(localStorage.getItem('selectedTours') || '[]');
         

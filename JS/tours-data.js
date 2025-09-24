@@ -1,4 +1,3 @@
-// tours-data.js
 const tours = [
     {
         keyword: 'golden-ring',
