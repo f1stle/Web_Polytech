@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ваш заказ - Путешествия по России</title>
-    <script src="../JS/order-script.js"></script>
+    <script src="../JS/order-script.js" defer></script>
     <link rel="stylesheet" href="../CSS/order-style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -12,18 +12,6 @@
     <header>
         <div class="container header-content">
             <div class="logo">Россия для путешественников</div>
-            <nav>
-                <ul class="nav-flex">
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="about.html">О проекте</a></li>
-                    <li><a href="gallery.html">Галерея</a></li>
-                    <li><a href="tours.html">Туры</a></li>
-                    <li><a href="order.html" class="active">Ваш заказ</a></li>
-                    <li><a href="feedback.html">Обратная связь</a></li>
-                    <li><a href="login.html">Вход</a></li>
-                    <li><a href="contacts.html">Контакты</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
@@ -36,8 +24,17 @@
                 <p>Проверьте выбранные туры и заполните данные для бронирования</p>
             </div>
             
-            <div id="order-content" class="order-content">
-                <!-- Сюда будет вставлено содержимое заказа -->
+            <div class="order-layout">
+                <div class="order-summary">
+                    <div id="order-content" class="order-content">
+                    </div>
+                </div>
+                
+                <div class="combo-details-sidebar">
+                    <h3>Детали вашего комбо</h3>
+                    <div id="combo-details">
+                    </div>
+                </div>
             </div>
             
             <div class="booking-form">
@@ -60,13 +57,38 @@
                     </div>
                     
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group date-input-group">
                             <label for="dates">Даты путешествия:</label>
-                            <input type="text" id="dates" name="dates" placeholder="дд.мм.гггг - дд.мм.гггг" required>
+                            <div class="date-input-wrapper">
+                                <input type="text" id="dates" name="dates" placeholder="дд.мм.гггг - дд.мм.гггг" required readonly>
+                                <button type="button" class="calendar-toggle" id="calendar-toggle">📅</button>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="participants">Количество участников:</label>
                             <input type="number" id="participants" name="participants" min="1" max="20" required>
+                        </div>
+                    </div>
+
+                    <div id="calendar-modal" class="calendar-modal">
+                        <div class="calendar-content">
+                            <div class="calendar-header">
+                                <button type="button" class="calendar-nav" id="prev-month">‹</button>
+                                <h3 id="calendar-month-year"></h3>
+                                <button type="button" class="calendar-nav" id="next-month">›</button>
+                            </div>
+                            <div class="calendar-grid" id="calendar-grid">
+                            </div>
+                            <div class="calendar-footer">
+                                <div class="selected-dates">
+                                    <strong>Выбранные даты:</strong>
+                                    <span id="selected-dates-display">Не выбрано</span>
+                                </div>
+                                <div class="calendar-actions">
+                                    <button type="button" class="calendar-btn secondary" id="clear-dates">Очистить</button>
+                                    <button type="button" class="calendar-btn primary" id="apply-dates">Применить</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     

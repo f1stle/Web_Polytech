@@ -253,3 +253,531 @@
             background-color: #c0392b;
         }
         
+        .order-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .order-summary {
+            background: #eef4ff;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .combo-details-sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #1a5276;
+            height: fit-content;
+        }
+
+        .combo-details-sidebar h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #2a5298;
+            padding-bottom: 10px;
+        }
+
+        .combo-package {
+            margin-bottom: 25px;
+        }
+
+        .combo-header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .combo-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .combo-savings {
+            background: #4caf50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .combo-tour-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #1a5276;
+        }
+
+        .combo-tour-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .combo-tour-info {
+            flex: 1;
+        }
+
+        .combo-tour-name {
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+
+        .combo-tour-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .current-price {
+            font-weight: bold;
+            color: #2a5298;
+            font-size: 1.1rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .combo-benefits {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .combo-benefits h4 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            padding: 5px 0;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .benefits-list li:before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .single-tour-details {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .single-tour-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 15px;
+            border: 3px solid #1a5276;
+        }
+
+        .single-tour-name {
+            font-size: 1.4rem;
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .single-tour-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 968px) {
+            .order-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .combo-details-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .combo-tour-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .combo-tour-image {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .combo-tour-price {
+                justify-content: center;
+            }
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #1a5276;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-name {
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+
+        .order-item-category {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .order-item-price {
+            font-weight: bold;
+            color: #2a5298;
+            font-size: 1.1rem;
+        }
+
+        .order-total {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .empty-combo-message {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .success-notification {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .notification-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .notification-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .notification-ok-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .notification-ok-btn:hover {
+            background: #388e3c;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .date-input-group {
+            position: relative;
+        }
+
+        .date-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .date-input-wrapper input {
+            padding-right: 45px;
+        }
+
+        .calendar-toggle {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .calendar-toggle:hover {
+            background-color: #f0f0f0;
+        }
+
+        .calendar-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calendar-content {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 350px;
+            width: 90%;
+            animation: slideIn 0.3s ease;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a5276;
+        }
+
+        .calendar-header h3 {
+            color: #1e3c72;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .calendar-nav {
+            background: #1a5276;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .calendar-nav:hover {
+            background: #154360;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: bold;
+            color: #1e3c72;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day {
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day:hover {
+            background: #e3f2fd;
+            border-color: #1a5276;
+        }
+
+        .calendar-day.other-month {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.other-month:hover {
+            background: transparent;
+            border-color: transparent;
+        }
+
+        .calendar-day.selected {
+            background: #1a5276;
+            color: white;
+        }
+
+        .calendar-day.range {
+            background: #e3f2fd;
+            color: #1a5276;
+        }
+
+        .calendar-day.start-date,
+        .calendar-day.end-date {
+            background: #1a5276;
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendar-day.today {
+            border: 2px solid #4caf50;
+        }
+
+        .calendar-footer {
+            border-top: 1px solid #e0e0e0;
+            padding-top: 15px;
+        }
+
+        .selected-dates {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .selected-dates strong {
+            color: #1e3c72;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #selected-dates-display {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .calendar-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .calendar-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .calendar-btn.primary {
+            background: #1a5276;
+            color: white;
+        }
+
+        .calendar-btn.primary:hover {
+            background: #154360;
+        }
+
+        .calendar-btn.secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .calendar-btn.secondary:hover {
+            background: #e0e0e0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-content {
+                padding: 15px;
+                max-width: 300px;
+            }
+            
+            .calendar-day {
+                padding: 8px 0;
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day-header {
+                font-size: 0.8rem;
+                padding: 6px 0;
+            }
+            
+        }

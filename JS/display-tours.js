@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const sortedTours = tours.sort((a, b) => a.name.localeCompare(b.name));
     
-    
     const categories = ['nature', 'cultural', 'adventure', 'relax'];
     
     categories.forEach(category => {

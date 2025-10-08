@@ -501,3 +501,285 @@
             margin-bottom: 10px;
         }
         
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #ffeb3b;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .combo-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .combo-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+        }
+
+        .combo-option:hover {
+            border-color: #1a5276;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(26, 82, 118, 0.15);
+        }
+
+        .option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .option-header h3 {
+            color: #1e3c72;
+            margin: 0;
+            font-size: 1.1rem;
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .price-badge {
+            background: #4caf50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .price-badge.discount {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-left: 5px;
+        }
+
+        .option-image {
+            width: 100%;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .combo-tours-preview {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 8px;
+        }
+
+        .preview-tour {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .preview-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 5px;
+            border: 2px solid #e0e0e0;
+            transition: transform 0.3s ease;
+        }
+
+        .combo-option:hover .preview-image {
+            transform: scale(1.1);
+        }
+
+        .preview-tour span {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .option-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .option-benefits {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .option-benefits li {
+            padding: 5px 0;
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        .select-option-btn {
+            background: linear-gradient(135deg, #1a5276, #154360);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .select-option-btn:hover {
+            background: linear-gradient(135deg, #154360, #1a5276);
+            transform: translateY(-2px);
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-radius: 0 0 12px 12px;
+            text-align: center;
+        }
+
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 5% auto;
+                width: 95%;
+            }
+            
+            .combo-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .option-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .price-badge {
+                margin-top: 10px;
+                align-self: flex-start;
+            }
+            
+            .combo-tours-preview {
+                flex-wrap: wrap;
+            }
+            
+            .preview-tour {
+                flex: 0 0 calc(33.333% - 10px);
+                margin-bottom: 10px;
+            }
+        }
+
+        .combo-option.selected {
+            border-color: #4caf50;
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e8);
+        }
+
+        .combo-option.selected::after {
+            content: '✓ Выбрано';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #4caf50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            
+        }

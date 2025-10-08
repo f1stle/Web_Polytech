@@ -174,7 +174,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Добавляем обработчики событий для кнопок выбора тура
             const selectButtons = document.querySelectorAll('.select-btn');
             selectButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -186,13 +185,11 @@
                 });
             });
             
-            // Обработчик для кнопки оформления
             const checkoutBtn = document.querySelector('.btn');
             checkoutBtn.addEventListener('click', function() {
                 alert('Переходим к оформлению заказа...');
             });
             
-            // Обработчики для категорий
             const categories = document.querySelectorAll('.category-list li');
             categories.forEach(category => {
                 category.addEventListener('click', function() {

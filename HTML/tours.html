@@ -12,24 +12,25 @@
     <header>
         <div class="container header-content">
             <div class="logo">Россия для путешественников</div>
-            <nav>
-                <ul class="nav-flex">
+        </div>
+    </header>
+
+        <div class="main-container container">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>Быстрые ссылки</h3>
+                <ul class="sidebar-links">
                     <li><a href="index.html">Главная</a></li>
                     <li><a href="about.html">О проекте</a></li>
                     <li><a href="gallery.html">Галерея</a></li>
-                    <li><a href="tours.html" class="active">Туры</a></li>
+                    <li><a href="tours.html">Туры</a></li>
                     <li><a href="order.html">Ваш заказ</a></li>
                     <li><a href="feedback.html">Обратная связь</a></li>
                     <li><a href="login.html">Вход</a></li>
                     <li><a href="contacts.html">Контакты</a></li>
                 </ul>
-            </nav>
-        </div>
-    </header>
 
-    <div class="main-container container">
-        <aside class="sidebar">
-            <div class="sidebar-content">
+        <div class="sidebar-widget">
                 <h3>Категории туров</h3>
                 <ul class="sidebar-links">
                     <li><a href="#nature-tours">Природные</a></li>
@@ -73,147 +74,42 @@
             <h1 class="section-title">Выберите туры для путешествия</h1>
             
             <section id="nature-tours" class="tours-section">
-                <h2 class="category-title">Природные туры</h2>
-                <div class="tours-grid">
-                    <div class="tour-card" data-category="nature">
-                        <div class="tour-image" style="background-image: url('../scr/scale_1200.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Озеро Байкал</h3>
-                            <p class="tour-description">Самое глубокое озеро в мире с кристально чистой водой и уникальной природой.</p>
-                            <p class="tour-price">от 25 000 ₽</p>
-                            <button class="select-tour-btn" data-id="1" data-name="Озеро Байкал" data-price="25000">Выбрать тур</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tour-card" data-category="nature">
-                        <div class="tour-image" style="background-image: url('../scr/73de6146d554467a50feb195bdf1f683.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Алтайские горы</h3>
-                            <p class="tour-description">Величественные горы, чистые реки и нетронутая природа Алтая.</p>
-                            <p class="tour-price">от 20 000 ₽</p>
-                            <button class="select-tour-btn" data-id="2" data-name="Алтайские горы" data-price="20000">Выбрать тур</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tour-card" data-category="nature">
-                        <div class="tour-image" style="background-image: url('../scr/scale_33330 (1).jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Камчатка</h3>
-                            <p class="tour-description">Вулканы, гейзеры и дикая природа Дальнего Востока России.</p>
-                            <p class="tour-price">от 45 000 ₽</p>
-                            <button class="select-tour-btn" data-id="3" data-name="Камчатка" data-price="45000">Выбрать тур</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="cultural-tours" class="tours-section">
-                <h2 class="category-title">Культурные туры</h2>
-                <div class="tours-grid">
-                    <div class="tour-card" data-category="cultural">
-                        <div class="tour-image" style="background-image: url('../scr/scale_4514.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Золотое кольцо России</h3>
-                            <p class="tour-description">Древние города России с богатой историей и архитектурой.</p>
-                            <p class="tour-price">от 18 000 ₽</p>
-                            <button class="select-tour-btn" data-id="4" data-name="Золотое кольцо России" data-price="18000">Выбрать тур</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tour-card" data-category="cultural">
-                        <div class="tour-image" style="background-image: url('../scr/orig.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Санкт-Петербург</h3>
-                            <p class="tour-description">Культурная столица России с дворцами, музеями и каналами.</p>
-                            <p class="tour-price">от 22 000 ₽</p>
-                            <button class="select-tour-btn" data-id="5" data-name="Санкт-Петербург" data-price="22000">Выбрать тур</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tour-card" data-category="cultural">
-                        <div class="tour-image" style="background-image: url('../scr/d85d3114-356f-5e97-bddb-c5535bc4593b.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Казань</h3>
-                            <p class="tour-description">Слияние восточной и западной культур в столице Татарстана.</p>
-                            <p class="tour-price">от 19 000 ₽</p>
-                            <button class="select-tour-btn" data-id="6" data-name="Казань" data-price="19000">Выбрать тур</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="adventure-tours" class="tours-section">
-                <h2 class="category-title">Приключенческие туры</h2>
-                <div class="tours-grid">
-                    <div class="tour-card" data-category="adventure">
-                        <div class="tour-image" style="background-image: url('../scr/scale_elb.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Треккинг на Эльбрус</h3>
-                            <p class="tour-description">Восхождение на высочайшую вершину России и Европы.</p>
-                            <p class="tour-price">от 35 000 ₽</p>
-                            <button class="select-tour-btn" data-id="7" data-name="Треккинг на Эльбрус" data-price="35000">Выбрать тур</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tour-card" data-category="adventure">
-                        <div class="tour-image" style="background-image: url('../scr/1677239693_klau-club-p-rasteniya.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Сплавы по рекам Сибири</h3>
-                            <p class="tour-description">Экстремальные сплавы по горным рекам Сибири и Дальнего Востока.</p>
-                            <p class="tour-price">от 28 000 ₽</p>
-                            <button class="select-tour-btn" data-id="8" data-name="Сплавы по рекам Сибири" data-price="28000">Выбрать тур</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tour-card" data-category="adventure">
-                        <div class="tour-image" style="background-image: url('../scr/ea7b49a9b73189ee74d9996c3f05e477.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Сафари на снегоходах</h3>
-                            <p class="tour-description">Экстремальные зимние приключения в заснеженных просторах России.</p>
-                            <p class="tour-price">от 15 000 ₽</p>
-                            <button class="select-tour-btn" data-id="9" data-name="Сафари на снегоходах" data-price="15000">Выбрать тур</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="relax-tours" class="tours-section">
-                <h2 class="category-title">Пляжный отдых</h2>
-                <div class="tours-grid">
-                    <div class="tour-card" data-category="relax">
-                        <div class="tour-image" style="background-image: url('../scr/imgpreview.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Черноморское побережье</h3>
-                            <p class="tour-description">Тёплое море, галечные и песчаные пляжи Сочи, Анапы и Геленджика.</p>
-                            <p class="tour-price">от 20 000 ₽</p>
-                            <button class="select-tour-btn" data-id="10" data-name="Черноморское побережье" data-price="20000">Выбрать тур</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tour-card" data-category="relax">
-                        <div class="tour-image" style="background-image: url('../scr/scale_cosa.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Куршская коса</h3>
-                            <p class="tour-description">Уникальный природный заповедник с песчаными дюнами на Балтийском море.</p>
-                            <p class="tour-price">от 25 000 ₽</p>
-                            <button class="select-tour-btn" data-id="11" data-name="Куршская коса" data-price="25000">Выбрать тур</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tour-card" data-category="relax">
-                        <div class="tour-image" style="background-image: url('../scr/7afd2830fc7ae6e6e6f196a6f2316a2a.jpg');"></div>
-                        <div class="tour-content">
-                            <h3 class="tour-title">Озеро Селигер</h3>
-                            <p class="tour-description">Чистейшие озёра и живописные острова в Тверской области.</p>
-                            <p class="tour-price">от 15 000 ₽</p>
-                            <button class="select-tour-btn" data-id="12" data-name="Озеро Селигер" data-price="15000">Выбрать тур</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <h2 class="category-title">Природные туры</h2>
+    <div class="tours-grid" id="nature-container"></div>
+</section>
+
+<section id="cultural-tours" class="tours-section">
+    <h2 class="category-title">Культурные туры</h2>
+    <div class="tours-grid" id="cultural-container"></div>
+</section>
+
+<section id="adventure-tours" class="tours-section">
+    <h2 class="category-title">Приключенческие туры</h2>
+    <div class="tours-grid" id="adventure-container"></div>
+</section>
+
+<section id="relax-tours" class="tours-section">
+    <h2 class="category-title">Пляжный отдых</h2>
+    <div class="tours-grid" id="relax-container"></div>
+</section>
+
         </main>
     </div>
-
+    <div id="comboModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Выберите вариант путешествия</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+        <div class="modal-body">
+            <div class="combo-options">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="cancel-btn">Вернуться к выбору</button>
+        </div>
+    </div>
+</div>
     <footer>
         <div class="container footer-flex">
             <div class="footer-section">
