@@ -12,19 +12,24 @@ document.addEventListener('DOMContentLoaded', function() {
     loadToursData();
     
     function loadToursData() {
-    fetch('/api/tours')
-        .then(response => response.json())
-        .then(data => {
-            tours = data.tours;
-            combos = data.combos;
-            renderTours();
-            renderCombos();
-            loadSelectedTours();
-        })
-        .catch(error => {
-            console.error('Error loading tours data:', error);
-            loadLocalToursData();
-        });
+        fetch('/api/tours')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                tours = data.tours;
+                combos = data.combos;
+                renderTours();
+                renderCombos();
+                loadSelectedTours();
+            })
+            .catch(error => {
+                console.error('Error loading tours data from API:', error);
+                loadLocalToursData();
+            });
     }
     
     function loadLocalToursData() {
@@ -205,13 +210,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 toursToSelect = [currentTour];
                 break;
             case 'combo-classic':
-                toursToSelect = getComboTours(['5', '4', '6'], 0.15);
+                toursToSelect = getComboTours([4, 5, 6], 0.15); // Исправлены ID
                 break;
             case 'combo-nature':
-                toursToSelect = getComboTours(['1', '2', '8'], 0.20);
+                toursToSelect = getComboTours([1, 2, 8], 0.20);
                 break;
             case 'combo-extreme':
-                toursToSelect = getComboTours(['3', '7', '9'], 0.18);
+                toursToSelect = getComboTours([3, 7, 9], 0.18);
                 break;
         }
         
@@ -237,27 +242,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function getComboTours(tourIds, discount) {
-        const tours = [];
-        const tourData = {};
-        
-        tours.forEach(t => {
-            tourData[t.id] = { name: t.name, price: t.price, category: t.category };
-        });
+        const toursToReturn = [];
         
         tourIds.forEach(id => {
-            if (tourData[id]) {
-                const discountedPrice = Math.round(tourData[id].price * (1 - discount));
-                tours.push({
-                    id: id,
-                    name: tourData[id].name,
+            const tour = tours.find(t => t.id === id);
+            if (tour) {
+                const discountedPrice = Math.round(tour.price * (1 - discount));
+                toursToReturn.push({
+                    id: tour.id.toString(),
+                    name: tour.name,
                     price: discountedPrice,
-                    category: tourData[id].category,
-                    originalPrice: tourData[id].price
+                    category: tour.category,
+                    originalPrice: tour.price,
+                    image: tour.img,
+                    description: tour.desc
                 });
             }
         });
         
-        return tours;
+        return toursToReturn;
     }
     
     function selectTour(tour) {
@@ -470,21 +473,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function saveSelectedTours() {
-    localStorage.setItem('selectedTours', JSON.stringify(selectedTours));
+        localStorage.setItem('selectedTours', JSON.stringify(selectedTours));
     
-    fetch('/api/save-order', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            tours: selectedTours,
-            total: selectedTours.reduce((sum, tour) => sum + tour.price, 0),
-            timestamp: new Date().toISOString()
-        })
-    }).catch(error => {
-        console.error('Error saving order to server:', error);
-    });
+        fetch('/api/save-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                tours: selectedTours,
+                total: selectedTours.reduce((sum, tour) => sum + tour.price, 0),
+                timestamp: new Date().toISOString()
+            })
+        }).catch(error => {
+            console.error('Error saving order to server:', error);
+        });
     }
     
     function loadSelectedTours() {
