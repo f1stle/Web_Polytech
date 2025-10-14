@@ -1,80 +1,47 @@
 document.addEventListener('DOMContentLoaded', function() {
+    let tours = [];
+    let combos = [];
+    let selectedTours = [];
+    let currentTour = null;
     
-    const tours = [
-        { id: 1, name: "Озеро Байкал", desc: "Самое глубокое озеро в мире с кристально чистой водой и уникальной природой.", price: 25000, img: "../scr/scale_1200.jpg", category: "nature" },
-        { id: 2, name: "Алтайские горы", desc: "Величественные горы, чистые реки и нетронутая природа Алтая.", price: 20000, img: "../scr/73de6146d554467a50feb195bdf1f683.jpg", category: "nature" },
-        { id: 3, name: "Камчатка", desc: "Вулканы, гейзеры и дикая природа Дальнего Востока России.", price: 45000, img: "../scr/scale_33330 (1).jpg", category: "nature" },
-        
-        { id: 4, name: "Золотое кольцо России", desc: "Древние города России с богатой историей и архитектурой.", price: 18000, img: "../scr/scale_4514.jpg", category: "cultural" },
-        { id: 5, name: "Санкт-Петербург", desc: "Культурная столица России с дворцами, музеями и каналами.", price: 22000, img: "../scr/orig.jpg", category: "cultural" },
-        { id: 6, name: "Казань", desc: "Слияние восточной и западной культур в столице Татарстана.", price: 19000, img: "../scr/d85d3114-356f-5e97-bddb-c5535bc4593b.jpg", category: "cultural" },
-
-        { id: 7, name: "Треккинг на Эльбрус", desc: "Восхождение на высочайшую вершину России и Европы.", price: 35000, img: "../scr/scale_elb.jpg", category: "adventure" },
-        { id: 8, name: "Сплавы по рекам Сибири", desc: "Экстремальные сплавы по горным рекам Сибири и Дальнего Востока.", price: 28000, img: "../scr/1677239693_klau-club-p-rasteniya.jpg", category: "adventure" },
-        { id: 9, name: "Сафари на снегоходах", desc: "Экстремальные зимние приключения в заснеженных просторах России.", price: 15000, img: "../scr/ea7b49a9b73189ee74d9996c3f05e477.jpg", category: "adventure" },
-
-        { id: 10, name: "Черноморское побережье", desc: "Тёплое море, галечные и песчаные пляжи Сочи, Анапы и Геленджика.", price: 20000, img: "../scr/imgpreview.jpg", category: "relax" },
-        { id: 11, name: "Куршская коса", desc: "Уникальный природный заповедник с песчаными дюнами на Балтийском море.", price: 25000, img: "../scr/scale_cosa.jpg", category: "relax" },
-        { id: 12, name: "Озеро Селигер", desc: "Чистейшие озёра и живописные острова в Тверской области.", price: 15000, img: "../scr/7afd2830fc7ae6e6e6f196a6f2316a2a.jpg", category: "relax" }
-    ];
-
-    const combos = [
-        {
-            type: "combo-classic",
-            title: 'Комбо "Классика России"',
-            price: 65000,
-            originalPrice: 76400,
-            desc: "Три культурные жемчужины России в одном путешествии",
-            benefits: [
-                "Экономия 15% на пакете",
-                "Единый транспорт между городами",
-                "Сопровождение гида на всем маршруте",
-                "Проживание в исторических отелях"
-            ],
-            tours: [
-                { name: "Санкт-Петербург", img: "../scr/orig.jpg" },
-                { name: "Золотое кольцо", img: "../scr/scale_4514.jpg" },
-                { name: "Казань", img: "../scr/d85d3114-356f-5e97-bddb-c5535bc4593b.jpg" }
-            ]
-        },
-        {
-            type: "combo-nature",
-            title: 'Комбо "Природа Сибири"',
-            price: 74400,
-            originalPrice: 93000,
-            desc: "Величественная природа Сибири от озер до горных рек",
-            benefits: [
-                "Экономия 20% на пакете",
-                "Трансферы между локациями",
-                "Снаряжение включено",
-                "Экологический туризм"
-            ],
-            tours: [
-                { name: "Байкал", img: "../scr/scale_1200.jpg" },
-                { name: "Алтай", img: "../scr/73de6146d554467a50feb195bdf1f683.jpg" },
-                { name: "Сплавы", img: "../scr/1677239693_klau-club-p-rasteniya.jpg" }
-            ]
-        },
-        {
-            type: "combo-extreme",
-            title: 'Комбо "Экстрим и адреналин"',
-            price: 80900,
-            originalPrice: 98600,
-            desc: "Максимум адреналина от вулканов до горных вершин",
-            benefits: [
-                "Экономия 18% на пакете",
-                "Профессиональные инструкторы",
-                "Полное снаряжение",
-                "Страховка включена"
-            ],
-            tours: [
-                { name: "Камчатка", img: "../scr/scale_33330 (1).jpg" },
-                { name: "Эльбрус", img: "../scr/scale_elb.jpg" },
-                { name: "Снегоходы", img: "../scr/ea7b49a9b73189ee74d9996c3f05e477.jpg" }
-            ]
-        }
-    ];
-
+    const comboModal = document.getElementById('comboModal');
+    const closeModal = document.querySelector('.close-modal');
+    const cancelBtn = document.querySelector('.cancel-btn');
+    const continueBtn = document.getElementById('continue-btn');
+    
+    loadToursData();
+    
+    function loadToursData() {
+    fetch('/api/tours')
+        .then(response => response.json())
+        .then(data => {
+            tours = data.tours;
+            combos = data.combos;
+            renderTours();
+            renderCombos();
+            loadSelectedTours();
+        })
+        .catch(error => {
+            console.error('Error loading tours data:', error);
+            loadLocalToursData();
+        });
+    }
+    
+    function loadLocalToursData() {
+        fetch('tours_data.json')
+            .then(response => response.json())
+            .then(data => {
+                tours = data.tours;
+                combos = data.combos;
+                renderTours();
+                renderCombos();
+                loadSelectedTours();
+            })
+            .catch(error => {
+                console.error('Error loading local tours data:', error);
+            });
+    }
+    
     function renderCombos() {
         const comboContainer = document.querySelector(".combo-options");
         if (!comboContainer) return;
@@ -128,8 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    renderCombos();
-
     function renderTours() {
         const containers = {
             nature: document.getElementById('nature-container'),
@@ -138,7 +103,14 @@ document.addEventListener('DOMContentLoaded', function() {
             relax: document.getElementById('relax-container')
         };
 
+        Object.values(containers).forEach(container => {
+            if (container) container.innerHTML = '';
+        });
+
         tours.forEach(t => {
+            const container = containers[t.category];
+            if (!container) return;
+            
             const card = document.createElement('div');
             card.className = 'tour-card';
             card.dataset.category = t.category;
@@ -152,19 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="select-tour-btn" data-id="${t.id}" data-name="${t.name}" data-price="${t.price}">Выбрать тур</button>
                 </div>
             `;
-            containers[t.category].appendChild(card);
+            container.appendChild(card);
         });
     }
-
-    renderTours();
-    let selectedTours = [];
-    let currentTour = null;
-    
-    const comboModal = document.getElementById('comboModal');
-    const closeModal = document.querySelector('.close-modal');
-    const cancelBtn = document.querySelector('.cancel-btn');
-    
-    loadSelectedTours();
     
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('select-tour-btn')) {
@@ -209,7 +171,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    const continueBtn = document.getElementById('continue-btn');
     if (continueBtn) {
         continueBtn.addEventListener('click', function() {
             if (validateTourSelection()) {
@@ -277,17 +238,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function getComboTours(tourIds, discount) {
         const tours = [];
-        const tourData = {
-            '1': { name: 'Озеро Байкал', price: 25000, category: 'nature' },
-            '2': { name: 'Алтайские горы', price: 20000, category: 'nature' },
-            '3': { name: 'Камчатка', price: 45000, category: 'nature' },
-            '4': { name: 'Золотое кольцо России', price: 18000, category: 'cultural' },
-            '5': { name: 'Санкт-Петербург', price: 22000, category: 'cultural' },
-            '6': { name: 'Казань', price: 19000, category: 'cultural' },
-            '7': { name: 'Треккинг на Эльбрус', price: 35000, category: 'adventure' },
-            '8': { name: 'Сплавы по рекам Сибири', price: 28000, category: 'adventure' },
-            '9': { name: 'Сафари на снегоходах', price: 15000, category: 'adventure' }
-        };
+        const tourData = {};
+        
+        tours.forEach(t => {
+            tourData[t.id] = { name: t.name, price: t.price, category: t.category };
+        });
         
         tourIds.forEach(id => {
             if (tourData[id]) {
@@ -515,7 +470,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function saveSelectedTours() {
-        localStorage.setItem('selectedTours', JSON.stringify(selectedTours));
+    localStorage.setItem('selectedTours', JSON.stringify(selectedTours));
+    
+    fetch('/api/save-order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            tours: selectedTours,
+            total: selectedTours.reduce((sum, tour) => sum + tour.price, 0),
+            timestamp: new Date().toISOString()
+        })
+    }).catch(error => {
+        console.error('Error saving order to server:', error);
+    });
     }
     
     function loadSelectedTours() {
