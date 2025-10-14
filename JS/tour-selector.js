@@ -4,54 +4,234 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedTours = [];
     let currentTour = null;
     
+    // Конфигурация сервера
+    const SERVER_BASE_URL = 'https://web-polytech-server.onrender.com';
+    
     const comboModal = document.getElementById('comboModal');
     const closeModal = document.querySelector('.close-modal');
     const cancelBtn = document.querySelector('.cancel-btn');
     const continueBtn = document.getElementById('continue-btn');
     
+    console.log('Starting Russia Travel Tours selector...');
+    console.log('Server URL:', SERVER_BASE_URL);
+    
     loadToursData();
     
     function loadToursData() {
-        fetch('/api/tours')
+        console.log('Loading tours data from API...');
+        
+        fetch(`${SERVER_BASE_URL}/api/tours`)
             .then(response => {
+                console.log('API response status:', response.status);
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
-                tours = data.tours;
-                combos = data.combos;
+                console.log('Data received from API:', data);
+                tours = data.tours || [];
+                combos = data.combos || [];
+                console.log(`Loaded ${tours.length} tours and ${combos.length} combos`);
+                
+                showNotification('Данные успешно загружены с сервера!', 'success');
                 renderTours();
                 renderCombos();
                 loadSelectedTours();
             })
             .catch(error => {
                 console.error('Error loading tours data from API:', error);
+                showNotification('Не удалось загрузить данные с сервера. Используем локальные данные.', 'warning');
                 loadLocalToursData();
             });
     }
     
     function loadLocalToursData() {
         fetch('tours_data.json')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Local file not found');
+                }
+                return response.json();
+            })
             .then(data => {
-                tours = data.tours;
-                combos = data.combos;
+                console.log('Data received from local file:', data);
+                tours = data.tours || [];
+                combos = data.combos || [];
+                console.log(`Loaded ${tours.length} tours and ${combos.length} combos from local file`);
+                
+                showNotification('Данные загружены из локального файла', 'info');
                 renderTours();
                 renderCombos();
                 loadSelectedTours();
             })
             .catch(error => {
                 console.error('Error loading local tours data:', error);
+                showNotification('Используем базовые данные для демонстрации', 'warning');
+                createFallbackData();
             });
     }
     
+    function createFallbackData() {
+        console.log('Creating fallback data...');
+        
+        // Только 3 базовых тура для демонстрации
+        tours = [
+            { 
+                id: 1, 
+                name: "Озеро Байкал", 
+                desc: "Самое глубокое озеро в мире с кристально чистой водой и уникальной природой.", 
+                price: 25000, 
+                img: "../scr/scale_1200.jpg", 
+                category: "nature" 
+            },
+            { 
+                id: 2, 
+                name: "Алтайские горы", 
+                desc: "Величественные горы, чистые реки и нетронутая природа Алтая.", 
+                price: 20000, 
+                img: "../scr/73de6146d554467a50feb195bdf1f683.jpg", 
+                category: "nature" 
+            },
+            { 
+                id: 3, 
+                name: "Камчатка", 
+                desc: "Вулканы, гейзеры и дикая природа Дальнего Востока России.", 
+                price: 45000, 
+                img: "../scr/scale_33330 (1).jpg", 
+                category: "nature" 
+            }
+        ];
+        
+        // Простые комбо для демонстрации
+        combos = [
+            {
+                type: "combo-nature",
+                title: "Комбо \"Природа Сибири\"",
+                price: 74400,
+                originalPrice: 90000,
+                desc: "Величественная природа Сибири от озер до горных рек",
+                benefits: [
+                    "Экономия 20% на пакете",
+                    "Трансферы между локациями",
+                    "Снаряжение включено"
+                ],
+                tours: [
+                    { name: "Байкал", img: "../scr/scale_1200.jpg" },
+                    { name: "Алтай", img: "../scr/73de6146d554467a50feb195bdf1f683.jpg" }
+                ]
+            }
+        ];
+        
+        console.log('Fallback data created with', tours.length, 'tours and', combos.length, 'combos');
+        renderTours();
+        renderCombos();
+        loadSelectedTours();
+    }
+
+    function renderTours() {
+        console.log('Rendering tours...');
+        const containers = {
+            nature: document.getElementById('nature-container'),
+            cultural: document.getElementById('cultural-container'),
+            adventure: document.getElementById('adventure-container'),
+            relax: document.getElementById('relax-container')
+        };
+
+        console.log('Available containers:', containers);
+
+        // Очищаем контейнеры
+        Object.values(containers).forEach(container => {
+            if (container) {
+                container.innerHTML = '';
+                console.log(`Cleared container: ${container.id}`);
+            }
+        });
+
+        if (tours.length === 0) {
+            console.log('No tours to render');
+            showNoToursMessage();
+            return;
+        }
+
+        tours.forEach(tour => {
+            console.log('Processing tour:', tour.name);
+            const container = containers[tour.category];
+            if (!container) {
+                console.log(`Container for category ${tour.category} not found`);
+                return;
+            }
+            
+            const card = document.createElement('div');
+            card.className = 'tour-card';
+            card.dataset.category = tour.category;
+            card.dataset.id = tour.id;
+            
+            // Проверяем и корректируем URL изображения
+            let imageUrl = tour.img;
+            if (!imageUrl.startsWith('http') && !imageUrl.startsWith('../') && !imageUrl.startsWith('/')) {
+                imageUrl = '../' + imageUrl;
+            }
+            
+            card.innerHTML = `
+                <div class="tour-image" style="background-image: url('${imageUrl}')"></div>
+                <div class="tour-content">
+                    <h3 class="tour-title">${tour.name}</h3>
+                    <p class="tour-description">${tour.desc}</p>
+                    <p class="tour-price">от ${tour.price.toLocaleString()} ₽</p>
+                    <button class="select-tour-btn" data-id="${tour.id}" data-name="${tour.name}" data-price="${tour.price}">Выбрать тур</button>
+                </div>
+            `;
+            
+            container.appendChild(card);
+            console.log(`Added tour card: ${tour.name} to container: ${container.id}`);
+        });
+
+        // Показываем статистику по контейнерам
+        Object.entries(containers).forEach(([category, container]) => {
+            if (container && container.children.length > 0) {
+                console.log(`Container ${category} has ${container.children.length} tours`);
+            }
+        });
+    }
+    
+    function showNoToursMessage() {
+        const containers = {
+            nature: document.getElementById('nature-container'),
+            cultural: document.getElementById('cultural-container'),
+            adventure: document.getElementById('adventure-container'),
+            relax: document.getElementById('relax-container')
+        };
+
+        Object.values(containers).forEach(container => {
+            if (container) {
+                const message = document.createElement('div');
+                message.className = 'no-tours-message';
+                message.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <h3>Туры временно недоступны</h3>
+                        <p>Попробуйте обновить страницу или зайти позже</p>
+                        <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #1a5276; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            Обновить страницу
+                        </button>
+                    </div>
+                `;
+                container.appendChild(message);
+            }
+        });
+    }
+
     function renderCombos() {
+        console.log('Rendering combos...');
         const comboContainer = document.querySelector(".combo-options");
-        if (!comboContainer) return;
+        if (!comboContainer) {
+            console.log('Combo container not found');
+            return;
+        }
+        
         comboContainer.innerHTML = "";
 
+        // Одиночный тур
         const singleOption = document.createElement("div");
         singleOption.className = "combo-option";
         singleOption.dataset.type = "single";
@@ -71,18 +251,29 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         comboContainer.appendChild(singleOption);
 
+        // Комбо-пакеты
+        if (combos.length === 0) {
+            console.log('No combos to render');
+            return;
+        }
+
         combos.forEach(combo => {
+            console.log('Processing combo:', combo.type);
             const comboDiv = document.createElement("div");
             comboDiv.className = "combo-option";
             comboDiv.dataset.type = combo.type;
 
-            const toursHTML = combo.tours.map(
-                t => `
+            const toursHTML = combo.tours.map(tour => {
+                let imageUrl = tour.img;
+                if (!imageUrl.startsWith('http') && !imageUrl.startsWith('../') && !imageUrl.startsWith('/')) {
+                    imageUrl = '../' + imageUrl;
+                }
+                return `
                     <div class="preview-tour">
-                        <div class="preview-image" style="background-image: url('${t.img}')"></div>
-                        <span>${t.name}</span>
-                    </div>`
-            ).join("");
+                        <div class="preview-image" style="background-image: url('${imageUrl}')"></div>
+                        <span>${tour.name}</span>
+                    </div>`;
+            }).join("");
 
             const benefitsHTML = combo.benefits.map(b => `<li>✓ ${b}</li>`).join("");
 
@@ -98,44 +289,14 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             comboContainer.appendChild(comboDiv);
         });
-    }
-
-    function renderTours() {
-        const containers = {
-            nature: document.getElementById('nature-container'),
-            cultural: document.getElementById('cultural-container'),
-            adventure: document.getElementById('adventure-container'),
-            relax: document.getElementById('relax-container')
-        };
-
-        Object.values(containers).forEach(container => {
-            if (container) container.innerHTML = '';
-        });
-
-        tours.forEach(t => {
-            const container = containers[t.category];
-            if (!container) return;
-            
-            const card = document.createElement('div');
-            card.className = 'tour-card';
-            card.dataset.category = t.category;
-            card.dataset.id = t.id;
-            card.innerHTML = `
-                <div class="tour-image" style="background-image: url('${t.img}')"></div>
-                <div class="tour-content">
-                    <h3 class="tour-title">${t.name}</h3>
-                    <p class="tour-description">${t.desc}</p>
-                    <p class="tour-price">от ${t.price.toLocaleString()} ₽</p>
-                    <button class="select-tour-btn" data-id="${t.id}" data-name="${t.name}" data-price="${t.price}">Выбрать тур</button>
-                </div>
-            `;
-            container.appendChild(card);
-        });
+        
+        console.log(`Rendered ${combos.length} combos`);
     }
     
+    // Обработчики событий
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('select-tour-btn')) {
-            const tourId = e.target.getAttribute('data-id');
+            const tourId = parseInt(e.target.getAttribute('data-id'));
             const tourName = e.target.getAttribute('data-name');
             const tourPrice = parseInt(e.target.getAttribute('data-price'));
             const tourCard = e.target.closest('.tour-card');
@@ -186,17 +347,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showComboModal(tour) {
+        if (!comboModal) return;
+        
         document.getElementById('singleTourPrice').textContent = tour.price.toLocaleString();
         document.getElementById('singleTourDesc').textContent = tour.description;
         
         const singleTourImage = document.getElementById('singleTourImage');
-        singleTourImage.style.backgroundImage = tour.image;
+        if (singleTourImage) {
+            singleTourImage.style.backgroundImage = tour.image;
+        }
         
         comboModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
     
     function closeComboModal() {
+        if (!comboModal) return;
+        
         comboModal.style.display = 'none';
         document.body.style.overflow = 'auto';
         currentTour = null;
@@ -210,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 toursToSelect = [currentTour];
                 break;
             case 'combo-classic':
-                toursToSelect = getComboTours([4, 5, 6], 0.15); // Исправлены ID
+                toursToSelect = getComboTours([4, 5, 6], 0.15);
                 break;
             case 'combo-nature':
                 toursToSelect = getComboTours([1, 2, 8], 0.20);
@@ -220,11 +387,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
         }
         
+        // Очищаем предыдущий выбор
         selectedTours.forEach(tour => {
             deselectTour(tour.id);
         });
         selectedTours = [];
         
+        // Добавляем новые туры
         toursToSelect.forEach(tour => {
             selectTour(tour);
         });
@@ -257,6 +426,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     image: tour.img,
                     description: tour.desc
                 });
+            } else {
+                console.warn(`Tour with id ${id} not found for combo`);
             }
         });
         
@@ -299,6 +470,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalElement = document.getElementById('order-total');
         const continueBtn = document.getElementById('continue-btn');
         
+        if (!orderContainer) return;
+        
         orderContainer.innerHTML = '';
         
         if (selectedTours.length === 0) {
@@ -306,8 +479,8 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyMessage.className = 'empty-order';
             emptyMessage.textContent = 'Выберите туры из списка';
             orderContainer.appendChild(emptyMessage);
-            totalElement.style.display = 'none';
-            continueBtn.disabled = true;
+            if (totalElement) totalElement.style.display = 'none';
+            if (continueBtn) continueBtn.disabled = true;
             return;
         }
         
@@ -354,12 +527,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        const totalSpan = totalElement.querySelector('span');
-        if (totalSpan) {
-            totalSpan.textContent = total.toLocaleString();
+        if (totalElement) {
+            const totalSpan = totalElement.querySelector('span');
+            if (totalSpan) {
+                totalSpan.textContent = total.toLocaleString();
+            }
+            totalElement.style.display = 'block';
         }
-        totalElement.style.display = 'block';
-        continueBtn.disabled = false;
+        
+        if (continueBtn) continueBtn.disabled = false;
     }
     
     function validateTourSelection() {
@@ -475,7 +651,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveSelectedTours() {
         localStorage.setItem('selectedTours', JSON.stringify(selectedTours));
     
-        fetch('/api/save-order', {
+        // Сохраняем заказ на сервере
+        fetch(`${SERVER_BASE_URL}/api/save-order`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -485,7 +662,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 total: selectedTours.reduce((sum, tour) => sum + tour.price, 0),
                 timestamp: new Date().toISOString()
             })
-        }).catch(error => {
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to save order on server');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Order saved on server:', data);
+        })
+        .catch(error => {
             console.error('Error saving order to server:', error);
         });
     }
@@ -519,6 +706,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Фильтры
     const priceRange = document.getElementById('priceRange');
     const priceValue = document.getElementById('priceValue');
     const durationFilter = document.getElementById('durationFilter');
@@ -560,5 +748,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (durationFilter) durationFilter.addEventListener('change', applyFilters);
     if (searchFilter) searchFilter.addEventListener('input', applyFilters);
     
+    // Инициализация
     updateOrderSummary();
+    
+    console.log('Tour selector initialization complete');
 });
