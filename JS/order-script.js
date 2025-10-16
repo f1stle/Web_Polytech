@@ -138,6 +138,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    const SERVER_BASE_URL = 'https://web-polytech-server.onrender.com';
+
     function initCalendar() {
         renderCalendar();
         setupCalendarEventListeners();
@@ -298,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
             datesInput.value = `${formatDate(selectedStartDate)} - ${formatDate(selectedEndDate)}`;
             closeCalendar();
         } else {
-            alert('Пожалуйста, выберите диапазон дат (начальную и конечную дату)');
+            showErrorNotification('Пожалуйста, выберите диапазон дат (начальную и конечную дату)');
         }
     }
 
@@ -443,7 +445,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h4>Преимущества комбо:</h4>
                     <ul class="benefits-list">
                         ${combo.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
-                    </ul>
+                </ul>
                 </div>
             </div>
         `;
@@ -494,9 +496,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.getElementById('booking-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
         if (selectedTours.length === 0) {
-            e.preventDefault();
-            alert('Пожалуйста, выберите хотя бы один тур');
+            showErrorNotification('Пожалуйста, выберите хотя бы один тур');
             return false;
         }
 
@@ -505,43 +508,91 @@ document.addEventListener('DOMContentLoaded', function() {
         const phone = document.getElementById('phone').value;
         const dates = document.getElementById('dates').value;
         const participants = document.getElementById('participants').value;
+        const comments = document.getElementById('comments').value;
 
         if (!name || !email || !phone || !dates || !participants) {
-            e.preventDefault();
-            alert('Пожалуйста, заполните все обязательные поля');
+            showErrorNotification('Пожалуйста, заполните все обязательные поля');
             return false;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            e.preventDefault();
-            alert('Пожалуйста, введите корректный email адрес');
+            showErrorNotification('Пожалуйста, введите корректный email адрес');
             return false;
         }
 
         const cleanPhone = phone.replace(/\D/g, '');
         if (cleanPhone.length < 10) {
-            e.preventDefault();
-            alert('Пожалуйста, введите корректный номер телефона');
+            showErrorNotification('Пожалуйста, введите корректный номер телефона');
             return false;
         }
 
         const dateRegex = /^\d{2}\.\d{2}\.\d{4} - \d{2}\.\d{2}\.\d{4}$/;
         if (!dateRegex.test(dates)) {
-            e.preventDefault();
-            alert('Пожалуйста, введите даты в формате: дд.мм.гггг - дд.мм.гггг');
+            showErrorNotification('Пожалуйста, введите даты в формате: дд.мм.гггг - дд.мм.гггг');
             return false;
         }
 
         if (participants < 1 || participants > 20) {
-            e.preventDefault();
-            alert('Количество участников должно быть от 1 до 20');
+            showErrorNotification('Количество участников должно быть от 1 до 20');
             return false;
         }
 
-        e.preventDefault();
-        showSuccessNotification();
+        const orderData = {
+            customer: {
+                name: name,
+                email: email,
+                phone: phone
+            },
+            booking: {
+                dates: dates,
+                participants: parseInt(participants),
+                comments: comments
+            },
+            tours: selectedTours,
+            total: selectedTours.reduce((sum, tour) => sum + tour.price, 0),
+            timestamp: new Date().toISOString()
+        };
+
+        submitOrderToServer(orderData);
     });
+
+    function submitOrderToServer(orderData) {
+        const submitBtn = document.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        
+        submitBtn.textContent = 'Отправка...';
+        submitBtn.disabled = true;
+
+        fetch(`${SERVER_BASE_URL}/api/save-order`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Order successfully saved:', data);
+            
+            localStorage.removeItem('selectedTours');
+            
+            showSuccessNotification();
+        })
+        .catch(error => {
+            console.error('Error submitting order:', error);
+            
+            showErrorNotification('Ошибка при отправке заказа. Пожалуйста, попробуйте еще раз.');
+            
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
+    }
 
     function showSuccessNotification() {
         const notification = document.createElement('div');
@@ -551,19 +602,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="notification-icon">✅</div>
                 <h3>Бронирование успешно отправлено!</h3>
                 <p>Мы свяжемся с вами в ближайшее время для подтверждения заказа.</p>
+                <p><strong>Номер заказа:</strong> #${Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
                 <button class="notification-ok-btn">Отлично!</button>
             </div>
         `;
         
         document.body.appendChild(notification);
         
-        const content = notification.querySelector('.notification-content');
+        const okBtn = notification.querySelector('.notification-ok-btn');
+        
+        okBtn.addEventListener('click', function() {
+            notification.remove();
+            window.location.href = 'tours.html';
+        });
+    }
+
+    function showErrorNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'error-notification';
+        notification.innerHTML = `
+            <div class="notification-content">
+                <div class="notification-icon">❌</div>
+                <h3>Ошибка!</h3>
+                <p>${message}</p>
+                <button class="notification-ok-btn">Понятно</button>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
         const okBtn = notification.querySelector('.notification-ok-btn');
         
         okBtn.addEventListener('click', function() {
             notification.remove();
         });
     }
+
     renderOrder();
     initCalendar();
 });

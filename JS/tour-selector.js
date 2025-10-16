@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedTours = [];
     let currentTour = null;
     
-    // Конфигурация сервера
     const SERVER_BASE_URL = 'https://web-polytech-server.onrender.com';
     
     const comboModal = document.getElementById('comboModal');
