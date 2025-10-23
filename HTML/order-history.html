@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История заказов - Путешествия по России</title>
+    <link rel="stylesheet" href="../CSS/order-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="../JS/order-history.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Россия для путешественников</div>
+            <nav>
+                <ul class="nav-flex">
+                    <li><a href="tours.html">Туры</a></li>
+                    <li><a href="order.html">Оформление</a></li>
+                    <li><a href="order-history.html" class="active">История заказов</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="tours.html" class="back-link">← Вернуться к выбору туров</a>
+        
+        <div class="order-container">
+            <div class="order-header">
+                <h1>История ваших заказов</h1>
+                <p>Просматривайте, редактируйте и управляйте вашими бронированиями</p>
+            </div>
+            
+            <div class="history-controls">
+                <div class="search-box">
+                    <input type="text" id="search-orders" placeholder="Поиск по названию тура...">
+                    <button type="button" id="search-btn">🔍</button>
+                </div>
+                <div class="filter-controls">
+                    <select id="status-filter">
+                        <option value="">Все статусы</option>
+                        <option value="confirmed">Подтвержден</option>
+                        <option value="pending">Ожидание</option>
+                        <option value="cancelled">Отменен</option>
+                        <option value="completed">Завершен</option>
+                    </select>
+                    <select id="date-filter">
+                        <option value="">Все даты</option>
+                        <option value="today">Сегодня</option>
+                        <option value="week">За неделю</option>
+                        <option value="month">За месяц</option>
+                        <option value="year">За год</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="orders-loading" class="loading-message">
+                <p>Загрузка истории заказов...</p>
+            </div>
+
+            <div id="orders-container" class="orders-container" style="display: none;">
+            </div>
+
+            <div id="no-orders-message" class="empty-order-message" style="display: none;">
+                <h3>У вас пока нет заказов</h3>
+                <p>Перейдите на страницу туров, чтобы выбрать и забронировать путешествие</p>
+                <a href="tours.html" class="submit-btn" style="display: inline-block; text-decoration: none; margin-top: 15px;">Выбрать туры</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="order-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Детали заказа</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="order-details-content">
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="close-details-btn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-order-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Редактирование заказа</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="edit-order-form">
+                    <input type="hidden" id="edit-order-id">
+                    
+                    <div class="form-group">
+                        <label for="edit-dates">Даты путешествия:</label>
+                        <input type="text" id="edit-dates" name="dates" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-participants">Количество участников:</label>
+                        <input type="number" id="edit-participants" name="participants" min="1" max="20" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-comments">Дополнительные пожелания:</label>
+                        <textarea id="edit-comments" name="comments" rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-status">Статус заказа:</label>
+                        <select id="edit-status" name="status">
+                            <option value="pending">Ожидание</option>
+                            <option value="confirmed">Подтвержден</option>
+                            <option value="cancelled">Отменен</option>
+                            <option value="completed">Завершен</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="cancel-edit-btn">Отмена</button>
+                <button class="modal-btn primary" id="save-edit-btn">Сохранить изменения</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Подтверждение удаления</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить этот заказ? Это действие нельзя отменить.</p>
+                <input type="hidden" id="delete-order-id">
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="cancel-delete-btn">Отмена</button>
+                <button class="modal-btn danger" id="confirm-delete-btn">Удалить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-flex">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Email: profi2000.melnikov@gmail.com</p>
+                <p>Телефон: +7 (913) 201-80-71</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Мы в соцсетях</h3>
+                <div class="social-flex">
+                    <a href="#">VK</a>
+                    <a href="#">Telegram</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Россия для путешественников. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

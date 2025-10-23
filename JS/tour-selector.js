@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function createFallbackData() {
         console.log('Creating fallback data...');
         
-        // Только 3 базовых тура для демонстрации
         tours = [
             { 
                 id: 1, 
@@ -102,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         ];
         
-        // Простые комбо для демонстрации
         combos = [
             {
                 type: "combo-nature",
@@ -139,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log('Available containers:', containers);
 
-        // Очищаем контейнеры
         Object.values(containers).forEach(container => {
             if (container) {
                 container.innerHTML = '';
@@ -166,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
             card.dataset.category = tour.category;
             card.dataset.id = tour.id;
             
-            // Проверяем и корректируем URL изображения
             let imageUrl = tour.img;
             if (!imageUrl.startsWith('http') && !imageUrl.startsWith('../') && !imageUrl.startsWith('/')) {
                 imageUrl = '../' + imageUrl;
@@ -186,7 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Added tour card: ${tour.name} to container: ${container.id}`);
         });
 
-        // Показываем статистику по контейнерам
         Object.entries(containers).forEach(([category, container]) => {
             if (container && container.children.length > 0) {
                 console.log(`Container ${category} has ${container.children.length} tours`);
@@ -230,7 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         comboContainer.innerHTML = "";
 
-        // Одиночный тур
         const singleOption = document.createElement("div");
         singleOption.className = "combo-option";
         singleOption.dataset.type = "single";
@@ -250,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         comboContainer.appendChild(singleOption);
 
-        // Комбо-пакеты
         if (combos.length === 0) {
             console.log('No combos to render');
             return;
@@ -292,7 +285,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`Rendered ${combos.length} combos`);
     }
     
-    // Обработчики событий
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('select-tour-btn')) {
             const tourId = parseInt(e.target.getAttribute('data-id'));
@@ -386,13 +378,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
         }
         
-        // Очищаем предыдущий выбор
         selectedTours.forEach(tour => {
             deselectTour(tour.id);
         });
         selectedTours = [];
         
-        // Добавляем новые туры
         toursToSelect.forEach(tour => {
             selectTour(tour);
         });
@@ -650,7 +640,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveSelectedTours() {
         localStorage.setItem('selectedTours', JSON.stringify(selectedTours));
     
-        // Сохраняем заказ на сервере
         fetch(`${SERVER_BASE_URL}/api/save-order`, {
             method: 'POST',
             headers: {
@@ -705,7 +694,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Фильтры
     const priceRange = document.getElementById('priceRange');
     const priceValue = document.getElementById('priceValue');
     const durationFilter = document.getElementById('durationFilter');
@@ -747,7 +735,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (durationFilter) durationFilter.addEventListener('change', applyFilters);
     if (searchFilter) searchFilter.addEventListener('input', applyFilters);
     
-    // Инициализация
     updateOrderSummary();
     
     console.log('Tour selector initialization complete');
