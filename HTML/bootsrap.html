@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Россия для путешественников - Лендинг</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5fb4;
+            --secondary-color: #e95420;
+            --accent-color: #c64600;
+            --light-color: #f6f5f4;
+            --dark-color: #2c2c2c;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark-color);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1577985051165-7669253e7aa7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 150px 0;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .contact-section {
+            background-color: var(--light-color);
+            padding: 80px 0;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Россия для путешественников</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Преимущества</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cta">Начать путешествие</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4">Откройте для себя красоту России</h1>
+                    <p class="lead mb-4">Россия - страна с богатейшей культурой, уникальной природой и многовековой историей. Откройте для себя удивительные места, которые стоит посетить каждому.</p>
+                    <a href="#features" class="btn btn-primary btn-lg me-2">Узнать больше</a>
+                    <a href="tours.html" class="btn btn-secondary btn-lg">Выбрать тур</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col">
+                    <h2 class="fw-bold">Почему выбирают нас</h2>
+                    <p class="lead">Мы предлагаем уникальные возможности для путешествий по России</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="feature-icon">🗺️</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Уникальные туры</h5>
+                            <p class="card-text">Только проверенные и интересные направления по всей России, от Байкала до Камчатки.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="feature-icon">👨‍🏫</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Советы экспертов</h5>
+                            <p class="card-text">Рекомендации от опытных путешественников и гидов с многолетним опытом.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="feature-icon">📰</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Актуальная информация</h5>
+                            <p class="card-text">Всегда свежие данные о достопримечательностях, условиях и возможностях для путешествий.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="feature-icon">🏔️</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Природа России</h5>
+                            <p class="card-text">Откройте для себя величественные пейзажи, от гор Алтая до вулканов Камчатки.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="feature-icon">🏛️</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Культурное наследие</h5>
+                            <p class="card-text">Познакомьтесь с богатой историей и культурой древних городов России.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="feature-icon">🛡️</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Безопасность и комфорт</h5>
+                            <p class="card-text">Мы заботимся о вашей безопасности и комфорте на протяжении всего путешествия.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-4">Готовы к незабываемому путешествию?</h2>
+                    <p class="lead mb-4">Выберите один из наших уникальных туров и откройте для себя настоящую Россию с её удивительной природой и богатой культурой.</p>
+                    <a href="tours.html" class="btn btn-light btn-lg">Выбрать тур сейчас</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="fw-bold mb-4">Свяжитесь с нами</h2>
+                    <p class="mb-4">Есть вопросы или нужна консультация? Наша команда экспертов готова помочь вам с планированием идеального путешествия.</p>
+                    
+                    <div class="mb-4">
+                        <h5>Контакты</h5>
+                        <p><strong>Email:</strong> profi2000.melnikov@gmail.com</p>
+                        <p><strong>Телефон:</strong> +7 (913) 201-80-71</p>
+                        <p><strong>Адрес:</strong> г. Москва, ул. Примерная, д. 123</p>
+                    </div>
+                    
+                    <div>
+                        <h5>Мы в соцсетях</h5>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="btn btn-outline-primary">VK</a>
+                            <a href="#" class="btn btn-outline-primary">Telegram</a>
+                            <a href="#" class="btn btn-outline-primary">YouTube</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-4">Форма обратной связи</h3>
+                    <form action="https://httpbin.org/post" method="POST">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Ваше имя</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="subject" class="form-label">Тема</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label">Сообщение</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <h5>Россия для путешественников</h5>
+                    <p>Откройте для себя красоту и разнообразие России</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Быстрые ссылки</h5>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="index.html" class="text-white">Главная</a>
+                        <a href="tours.html" class="text-white">Туры</a>
+                        <a href="gallery.html" class="text-white">Галерея</a>
+                        <a href="contacts.html" class="text-white">Контакты</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <p>&copy; 2025 Россия для путешественников. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
